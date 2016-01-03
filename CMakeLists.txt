@@ -64,5 +64,5 @@ set(SOURCE_FILES MarkKiller.cpp include/dlib/all/source.cpp)
 add_executable(MarkKiller ${SOURCE_FILES} ${HEADER_FILES})
 set(PRIVATE_LINK_LIBS xmarker transcode text)
 set(PUBLIC_LINK_LIBS ${FFMPEG_AVUTIL} ${FFMPEG_SWRESAMPLE} ${FFMPEG_AVCODEC} ${FFMPEG_AVFORMAT} ${FFMPEG_SWSCALE} ${OpenCV_LIBS} ${FFMPEG_SWRESAMPLE} ${CMAKE_THREAD_LIBS_INIT}  ${ZLIB_LIBRARIES})
-target_link_libraries(MarkKiller ${PUBLIC_LINK_LIBS} ${PRIVATE_LINK_LIBS} ${PUBLIC_LINK_LIBS})
+target_link_libraries(MarkKiller ${PUBLIC_LINK_LIBS}  ${PUBLIC_LINK_LIBS} ${PUBLIC_LINK_LIBS} ${PUBLIC_LINK_LIBS} ${PUBLIC_LINK_LIBS} ${PRIVATE_LINK_LIBS} ${PUBLIC_LINK_LIBS})
                                                                	
