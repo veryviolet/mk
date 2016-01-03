@@ -1,0 +1,3 @@
+sudo add-apt-repository ppa:mc3man/trusty-media
+sudo apt-get -y update
+sudo apt-get -y install ffmpeg x264
