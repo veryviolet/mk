@@ -5,6 +5,8 @@ include_directories("${MarkKiller_SOURCE_DIR}/include")
 
 find_package(OpenCV REQUIRED)
 
+find_package(Threads)
+
 include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories($ENV{FFMPEG_DIR}/include)
 
@@ -58,5 +60,5 @@ add_library(text STATIC ${MARKKILLER_TEXT_SOURCE_FILES} ${MARKKILLER_TEXT_HEADER
 
 set(SOURCE_FILES MarkKiller.cpp include/dlib/all/source.cpp)
 add_executable(MarkKiller ${SOURCE_FILES} ${HEADER_FILES})
-target_link_libraries(MarkKiller xmarker transcode  text ${FFMPEG_SWRESAMPLE} ${FFMPEG_AVCODEC} ${FFMPEG_AVFORMAT} ${FFMPEG_AVUTIL} ${FFMPEG_SWSCALE} ${OpenCV_LIBS} ${FFMPEG_SWRESAMPLE})
+target_link_libraries(MarkKiller xmarker transcode  text ${FFMPEG_SWRESAMPLE} ${FFMPEG_AVCODEC} ${FFMPEG_AVFORMAT} ${FFMPEG_AVUTIL} ${FFMPEG_SWSCALE} ${OpenCV_LIBS} ${FFMPEG_SWRESAMPLE} ${CMAKE_THREAD_LIBS_INIT})
                                                                	
