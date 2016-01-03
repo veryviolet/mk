@@ -13,9 +13,9 @@ int main(int argc, char ** argv)
     try
     {
 #ifdef WIN32
-//		freopen("NUL","w",stderr);
+		freopen("NUL","w",stderr);
 #else
-//		freopen("/dev/null","w",stderr);
+		freopen("/dev/null","w",stderr);
 #endif
 
         CXMarker xMarker;
