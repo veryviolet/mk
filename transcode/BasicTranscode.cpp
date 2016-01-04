@@ -128,17 +128,16 @@ bool BasicTranscode::OpenTarget(const char *url, const char * stream_name)
 				if (dec_ctx->codec_id == AV_CODEC_ID_H264)
 					av_opt_set(enc_ctx->priv_data, "preset", "fast", 0);
 				enc_ctx->gop_size = 250;
-				enc_ctx->keyint_min = 25;
-				enc_ctx->scenechange_threshold = 40;
-				enc_ctx->b_frame_strategy = 1;
-				enc_ctx->coder_type = 0;
-				enc_ctx->refs = 6;
+				//enc_ctx->keyint_min = 25;
+				//enc_ctx->scenechange_threshold = 40;
+				//enc_ctx->b_frame_strategy = 1;
+				//enc_ctx->refs = 6;
 				//enc_ctx->max_b_frames = 0;
 				//enc_ctx->global_quality = 0;
 				enc_ctx->qmin = 10;
 				enc_ctx->qmax = 51;
 				enc_ctx->i_quant_factor = 0.71;
-				enc_ctx->max_qdiff = 4;
+				//enc_ctx->max_qdiff = 4;
 				enc_ctx->profile = FF_PROFILE_H264_BASELINE;
 
 				enc_ctx->bit_rate = dec_ctx->bit_rate;
