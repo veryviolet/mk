@@ -65,6 +65,7 @@ void CMarkTextBox::Inpaint(Mat & pFrame, Rect R)
 
 bool CMarkTextBox::ProcessFrame(Mat & pFrame)
 {
+	return true;
 	if (Found)
 	{
 		Mat curMark = pFrame(FoundRect);
