@@ -11,7 +11,12 @@ find_package(ZLIB)
 
 find_package(LibLZMA)
 
-set(FFMPEG_DIR /opt/ffmpeg)
+if(MSVC)
+	set(FFMPEG_DIR $ENV{FFMPEG_DIR})
+else()
+	set(FFMPEG_DIR /opt/ffmpeg)
+endif()
+
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${FFMPEG_DIR}/include)
@@ -78,8 +83,17 @@ set(SOURCE_FILES MarkKiller.cpp include/dlib/all/source.cpp)
 add_executable(MarkKiller ${SOURCE_FILES} ${HEADER_FILES})
 set(PRIVATE_LINK_LIBS xmarker transcode text)
 set(FFMPEG_LINK_LIBS  ${FFMPEG_AVFORMAT} ${FFMPEG_AVCODEC} ${FFMPEG_SWSCALE} ${FFMPEG_AVUTIL} ${FFMPEG_SWRESAMPLE})
-set(CODECS_LINK_LIBS ${LIB_X264} ${LIB_X265} ${LIB_FDK-AAC} ${LIB_MP3LAME} ${LIB_OPUS} ${LIB_XVID} ${LIB_VPX} ${LIB_OGG} ${LIB_VORBIS} ${LIB_VORBISENC} ${LIB_VORBISFILE}  ${LIB_SPEEX} ${LIB_VA} ${LIB_VO_AACENC} ${LIB_AMRNB} ${LIB_AMRWB} ${LIB_SOXR})
-set(PUBLIC_LINK_LIBS  ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT} ${ZLIB_LIBRARIES} ${LIBLZMA_LIBRARIES} ${CMAKE_DL_LIBS} ${LIB_BZ2} ${LIB_DCADEC})
+
+
+if(MSVC)
+	set(CODECS_LINK_LIBS )
+	set(PUBLIC_LINK_LIBS  ${OpenCV_LIBS})
+else()
+	set(CODECS_LINK_LIBS ${LIB_X264} ${LIB_X265} ${LIB_FDK-AAC} ${LIB_MP3LAME} ${LIB_OPUS} ${LIB_XVID} ${LIB_VPX} ${LIB_OGG} ${LIB_VORBIS} ${LIB_VORBISENC} ${LIB_VORBISFILE}  ${LIB_SPEEX} ${LIB_VA} ${LIB_VO_AACENC} ${LIB_AMRNB} ${LIB_AMRWB} ${LIB_SOXR})
+	set(PUBLIC_LINK_LIBS  ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT} ${ZLIB_LIBRARIES} ${LIBLZMA_LIBRARIES} ${CMAKE_DL_LIBS} ${LIB_BZ2} ${LIB_DCADEC})
+endif()
+
+
 set(LINK_LIBS ${FFMPEG_LINK_LIBS} ${PUBLIC_LINK_LIBS} ${CODECS_LINK_LIBS} ${PRIVATE_LINK_LIBS})
 target_link_libraries(MarkKiller ${LINK_LIBS} ${LINK_LIBS} ${LINK_LIBS})
                                                                	
