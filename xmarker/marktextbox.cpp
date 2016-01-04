@@ -65,7 +65,6 @@ void CMarkTextBox::Inpaint(Mat & pFrame, Rect R)
 
 bool CMarkTextBox::ProcessFrame(Mat & pFrame)
 {
-	return true;
 	if (Found)
 	{
 		Mat curMark = pFrame(FoundRect);
@@ -107,6 +106,8 @@ bool CMarkTextBox::ProcessFrame(Mat & pFrame)
 	vector<Rect> bboxes;
 	Ptr<MSER> mser = MSER::create(31, 5 * 10, 12 * 24 , 1, 0.7);
 	mser->detectRegions(grey, contours, bboxes);
+
+	return true;
 
 	if (contours.size() > 0)
 		MSERsToERStats(grey, contours, regions);
