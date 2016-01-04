@@ -20,7 +20,7 @@ find_library(FFMPEG_AVFORMAT NAMES avformat HINTS "${FFMPEG_DIR}/lib" "$ENV{FFMP
 find_library(FFMPEG_AVCODEC NAMES avcodec HINTS "${FFMPEG_DIR}/lib" "$ENV{FFMPEG_DIR}/lib")
 find_library(FFMPEG_AVUTIL NAMES avutil HINTS "${FFMPEG_DIR}/lib" "$ENV{FFMPEG_DIR}/lib")
 find_library(FFMPEG_SWSCALE NAMES swscale HINTS "${FFMPEG_DIR}/lib" "$ENV{FFMPEG_DIR}/lib")
-find_library(FFMPEG_SWRESAMPLE NAMES swresample "${FFMPEG_DIR}/lib" "$ENV{FFMPEG_DIR}/lib")
+find_library(FFMPEG_SWRESAMPLE NAMES swresample HINTS "${FFMPEG_DIR}/lib" "$ENV{FFMPEG_DIR}/lib")
 find_library(FFMPEG_VORBIS NAMES vorbis)
 find_library(FFMPEG_VORBISENC NAMES vorbisenc)
 find_library(FFMPEG_VORBISFILE NAMES vorbisfile)
