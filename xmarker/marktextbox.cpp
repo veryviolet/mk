@@ -65,7 +65,7 @@ void CMarkTextBox::Inpaint(Mat & pFrame, Rect R)
 
 bool CMarkTextBox::ProcessFrame(Mat & pFrame)
 {
-	if (Found)
+	if (false)
 	{
 		Mat curMark = pFrame(FoundRect);
 
@@ -73,15 +73,15 @@ bool CMarkTextBox::ProcessFrame(Mat & pFrame)
 
 		if (nrm < NormDiff)
 		{
-//			rectangle(pFrame, FoundRect, Scalar(0, 255, 0), 4);
+			rectangle(pFrame, FoundRect, Scalar(0, 255, 0), 4);
 			Inpaint(pFrame, FoundRect);
 			curMark.copyTo(FoundMark);
 			return true;
 		}
 		else
 		{
-//			imwrite("m_prev.jpg", FoundMark);
-//			imwrite("m_curr.jpg", curMark);
+			imwrite("m_prev.jpg", FoundMark);
+			imwrite("m_curr.jpg", curMark);
 
 			Found = false;
 		}
@@ -89,10 +89,23 @@ bool CMarkTextBox::ProcessFrame(Mat & pFrame)
 
 	Mat grey;
 
+	double Q = 4;
+
 	if (Mask.data == NULL)
 		Mask = Mat(pFrame.rows, pFrame.cols, CV_8U);
 
-	cvtColor(pFrame, grey, COLOR_BGR2GRAY);
+	Size OriginalSize = pFrame.size();
+
+	Mat resizedFrame;
+
+	Size NewSize;
+	
+	NewSize.width = OriginalSize.width / Q;
+	NewSize.height = OriginalSize.height / Q;
+
+	resize(pFrame, resizedFrame, NewSize);
+
+	cvtColor(resizedFrame, grey, COLOR_BGR2GRAY);
 
 	channels.clear();
 	channels.push_back(grey);
@@ -107,27 +120,28 @@ bool CMarkTextBox::ProcessFrame(Mat & pFrame)
 	Ptr<MSER> mser = MSER::create(31, 5 * 10, 12 * 24 , 1, 0.7);
 	mser->detectRegions(grey, contours, bboxes);
 
-	return true;
-
 	if (contours.size() > 0)
 		MSERsToERStats(grey, contours, regions);
 
 	vector< vector<Vec2i> > nm_region_groups;
 	vector<Rect> nm_boxes;
 
-	erGrouping(pFrame, channels, regions, nm_region_groups, nm_boxes, ERGROUPING_ORIENTATION_HORIZ);
+	erGrouping(resizedFrame, channels, regions, nm_region_groups, nm_boxes, ERGROUPING_ORIENTATION_HORIZ);
 
 	for (int i = 0; i < nm_boxes.size(); i++)
 	{
 		if ((abs(nm_boxes[i].width - MarkWidth) < DeltaSize) && (abs(nm_boxes[i].width - MarkWidth) < DeltaSize))
 		{
-			FoundRect = nm_boxes[i];
-			pFrame(FoundRect).copyTo(FoundMark);
+			FoundRect.x = nm_boxes[i].x * Q;
+			FoundRect.y = nm_boxes[i].y * Q;
+			FoundRect.width = nm_boxes[i].width * Q;
+			FoundRect.height = nm_boxes[i].height * Q;
+			//resizedFrame(FoundRect).copyTo(FoundMark);
 			Found = true;
 
-//			rectangle(pFrame, FoundRect, Scalar(0, 255, 0), 4);
+			rectangle(pFrame, FoundRect, Scalar(0, 255, 0), 4);
 
-			Inpaint(pFrame, nm_boxes[i]);
+			//Inpaint(pFrame, nm_boxes[i]);
 
 		}
 	}
