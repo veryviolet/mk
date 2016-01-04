@@ -29,7 +29,7 @@ find_library(FFMPEG_X265 NAMES x265)
 find_library(FFMPEG_VPX NAMES vpx)
 find_library(FFMPEG_OGG NAMES ogg)
 find_library(FFMPEG_OPUS NAMES opus)
-find_library(FFMPEG_XVID NAMES xvid)
+find_library(FFMPEG_XVID NAMES xvidcore)
 find_library(FFMPEG_MP3LAME NAMES mp3lame)
 find_library(FFMPEG_FDK-AAC NAMES fdk-aac)
 
