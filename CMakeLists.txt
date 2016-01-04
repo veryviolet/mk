@@ -69,5 +69,5 @@ set(FFMPEG_LINK_LIBS  ${FFMPEG_AVFORMAT} ${FFMPEG_AVCODEC} ${FFMPEG_SWSCALE} ${F
 set(CODECS_LINK_LIBS ${FFMPEG_X264})
 set(PUBLIC_LINK_LIBS  ${OpenCV_LIBS} ${CMAKE_THREAD_LIBS_INIT} ${ZLIB_LIBRARIES} ${LIBLZMA_LIBRARIES})
 set(LINK_LIBS ${FFMPEG_LINK_LIBS} ${PUBLIC_LINK_LIBS} ${CODECS_LINK_LIBS} ${PRIVATE_LINK_LIBS})
-target_link_libraries(MarkKiller ${LINK_LIBS})
+target_link_libraries(MarkKiller ${LINK_LIBS} ${LINK_LIBS} ${LINK_LIBS})
                                                                	
